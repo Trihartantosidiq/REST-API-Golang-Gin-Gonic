@@ -1,0 +1,154 @@
+func starpiramid() {
+	height := 10
+	width := 2*height - 1
+	arr := make([][]string, height)
+	for i := range arr {
+		arr[i] = make([]string, width)
+	}
+
+	// Isi array dengan karakter '*' untuk membuat pola piramida
+	mid := width / 2
+	for i := 0; i < height; i++ {
+		for j := mid - i; j <= mid+i; j++ {
+			arr[i][j] = "*"
+		}
+	}
+
+	// Cetak array
+	for i := 0; i < height; i++ {
+		for j := 0; j < width; j++ {
+			if arr[i][j] == "*" {
+				fmt.Print(arr[i][j])
+			} else {
+				fmt.Print(" ")
+			}
+		}
+		fmt.Println()
+	}
+}
+
+func condition() {
+	currenYear := time.Now().Year()
+	birthYear := 2010
+	age := currenYear - birthYear
+
+	if age < 17 {
+		fmt.Println("Kamu Belum bisa membuat sim")
+
+	} else if age > 50 {
+		fmt.Println("Kamu harus mengikuti test ulang")
+	} else {
+		fmt.Println("Kamu sudah bisa membuat sim")
+	}
+
+	birthYear = 1980
+	if userage := currenYear - birthYear; userage < 17 {
+		fmt.Println("Kamu Belum bisa membuat sim")
+
+	} else if age > 50 {
+		fmt.Println("Kamu harus mengikuti test ulang")
+	} else {
+		fmt.Println("Kamu sudah bisa membuat sim")
+	}
+
+	//a.switch exact value
+	age = 20
+	switch age {
+	case 10:
+		fmt.Println("kamu masih bocil")
+	case 20, 17:
+		fmt.Println("kamu sudah abg")
+		fallthrough
+	default:
+		fmt.Println("kamu sudah dewasa")
+	}
+
+	//b.switch with condition
+	switch {
+	case age < 10:
+		fmt.Println("Kamu masih bocil")
+	case age < 17 && age >= 10:
+		fmt.Println("kamu sudah mulai abg")
+	case age < 24 && age >= 17:
+		fmt.Println("kamu abg")
+	default:
+		fmt.Println("kamu sudah dewasaa")
+	}
+
+	for a := 0; a < 10; a++ {
+		fmt.Println("angka", a)
+	}
+}
+
+func looping() {
+	var a = 0
+	for {
+		fmt.Println("angka", a)
+
+		a++
+		if a == 4 {
+			break
+		}
+	}
+
+	i := 10
+
+	for i <= 15 {
+		fmt.Printf("pengulangan :%v\n", i)
+		i++
+	}
+}
+
+func arrayslice() {
+	arr := [3]int{}
+	for i := 0; i < len(arr); i++ {
+		fmt.Println(arr[i])
+	}
+
+	slc := []int{}
+	slc = append(slc, 1)
+	slc = append(slc, 2)
+	slc[1] = 200
+	for i := 0; i < len(slc); i++ {
+		fmt.Println(slc[i])
+	}
+
+	for idx, val := range arr {
+		fmt.Printf("id : %v val:%v\n", idx, val)
+	}
+	arrmultiDimension := [3][3]int{}
+
+	var x int = len(arrmultiDimension)
+	println(x)
+	for i := 0; i < len(arrmultiDimension); i++ {
+		for j := 0; j < len(arrmultiDimension[i]); j++ {
+			fmt.Println(arrmultiDimension[i][j])
+
+		}
+
+	}
+	// for i := 0; i < len(arrmultiDimension); i++ {
+	// 	for j := 0; j < len(arrmultiDimension[i]); j++ {
+	// 		fmt.Println(arrmultiDimension[i][j])
+	// 	}
+	// }
+
+	// for outID, outVal := range arrmultiDimension{
+	// 	for inId, inVal := range outID{
+	// 		fmt.Println(outID, outVal, inId, inVal)
+	// 	}
+	// }
+
+	for _, val := range arr {
+		slc = append(slc, val)
+	}
+	fmt.Println(slc)
+
+	slc = append(slc, arr[0], arr[1], arr[2])
+
+	slc2 := []int{1, 2, 3, 4, 5}
+	slc = append(slc, slc2...)
+
+	slc3 := slc[0:2]
+	fmt.Println(slc3)
+}

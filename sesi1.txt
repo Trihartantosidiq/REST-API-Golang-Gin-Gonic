@@ -1,0 +1,59 @@
+var name string
+	var number int = 1000
+	var firtname = "Sidiq"
+	fmt.Println(firtname)
+
+	//cara membuat variabel bebas gunain cara apa untuk mendeclar variable
+	//Variable
+
+	name = "user"
+	email := "user@gmail.com"
+
+	fmt.Printf("variable name, tipe:%T value:%v\n", name, name)
+	fmt.Printf("variable email, tipe:%T value:%v\n", email, email)
+	fmt.Printf("variable number, tipe:%T value:%v\n", number, number)
+
+	//println tidak bisa mengandung format atau verb
+	//printf => bisa mengandung verb / format (%T, %V, %S, \n)
+
+	// multi declare variables
+	username, age := "username1", 19
+	fmt.Println(username, age)
+
+	_ = "some value"
+
+	//Data Type
+	//golang merupakan bahasa pemrograman yang strict dengan data type
+	//integer
+	//float(float322, float64)
+	//string
+	//bloean
+	//unsignet integer
+	//byte
+	//interface
+	//nill -> value
+	//map, slice, pointer, function, channel
+
+	//mutable
+	//immutable
+	var agee uint8 = 150
+	fmt.Printf("agee, tipe:%T value:%v\n", agee, agee)
+	bool1 := true
+	bool2 := false
+
+	fmt.Println(bool1, bool2)
+
+	var b1 byte
+	//byte itu cuma buat deeclaree unsigned integer
+	b1 = 100
+	fmt.Println(b1)
+
+	var iface interface{} //any alias dari interface{}
+	iface = 100
+	fmt.Printf("iface1=> tipe:%T value:%v\n", iface, iface)
+	iface = "Sidiq Trihartanto"
+	fmt.Printf("iface1=> tipe:%T value:%v\n", iface, iface)
+
+	//object => dictionary di python / object di javascript / class di java
+	// obejct => map / struct
+	//golang itu bukan oop (object oriented programming)

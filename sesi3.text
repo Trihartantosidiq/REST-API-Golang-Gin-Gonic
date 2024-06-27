@@ -1,0 +1,236 @@
+
+func structt() {
+
+	type User struct {
+		Firstname string
+		Lastname  string
+		Email     string
+		Age       int
+	}
+
+	var usr1 User
+	usr1.Firstname = "Sidiq"
+	usr1.Lastname = "Trihartanto"
+	usr1.Email = "sidiqtrihartanto74@gmail.com"
+	usr1.Age = 24
+
+	fmt.Printf("%+v \n", usr1)
+
+	users := []User{
+		{Firstname: "Sidiq", Lastname: "Trihartanto", Email: "sidiqtrihartanto74@gmail.com", Age: 24},
+	}
+
+	users = append(users, User{
+		Firstname: "Sidiq",
+		Lastname:  "Trihartanto",
+		Email:     "sidiqtrihartanto74@gmail.com",
+		Age:       24,
+	})
+
+	for _, user := range users {
+		fmt.Println(user)
+	}
+
+	// fmt.Println(users)
+
+	nuum := 1
+
+	var num2 *int
+	fmt.Println(nuum, num2)
+
+	num2 = &nuum
+	fmt.Println(nuum, num2)
+
+	*num2 = 10 //mengganti nilai pointer
+	fmt.Println(nuum, num2)
+
+	type Student struct {
+		Nim uint32
+		User
+	}
+
+	var std Student
+	std.Firstname = "Sidiq"
+	std.Lastname = "Trihartanto"
+	std.Email = "sidiqhartanto74@gmail.com"
+	std.Age = 24
+	std.Nim = 1000
+
+	fmt.Println(std)
+
+}
+
+func Function() {
+	in := []int{1, 2, 3, 4, 5}
+	in2 := []int{1, 2, 3, 4, 5}
+	in3 := []int{1, 2, 3, 4, 5}
+	out, out2, out3 := sum(in, in2, in3)
+
+	//klo mau mengabaikan out2 dan 3 yyaitu dengan cara _
+	//contoh out, _ , _ := sum(in, in2, in3)
+
+	outSU := sumUpraged(1, 2, 3, 4, 5, 6, 7, 8)          //input bisa aja kosong
+	outSU2 := sumUpraged2([]int{1, 2, 3, 4, 5, 6, 7, 8}) //input harus menggunakan slice
+	fmt.Println(out, out2, out3)
+
+	fmt.Println(outSU, outSU2)
+
+	fn(func() string {
+		return "prakeerja batch 5"
+	})
+
+	oFn := fn2("Sidiq")
+	fmt.Println(oFn, oFn())
+}
+
+// alias
+type callbackFn func() string
+
+func fn(f callbackFn) {
+	fmt.Println("Hello: ", f())
+}
+
+func fn2(str string) callbackFn {
+	return func() string {
+		return str
+	}
+}
+
+func sumUpraged(in ...int) (rees int) {
+	for _, val := range in {
+		rees += val
+	}
+	return
+}
+
+func sumUpraged2(in []int) (rees int) {
+	for _, val := range in {
+		rees += val
+	}
+	return
+}
+
+func sum(slc, slc2, slc3 []int) (result, result2, result3 int) {
+
+	// result := 0
+
+	for _, val := range slc {
+		result += val
+	}
+
+	// result2 := 0
+
+	for _, val := range slc2 {
+		result2 += val
+	}
+
+	// result3 := 0
+
+	for _, val := range slc3 {
+		result3 += val
+	}
+
+	return result, result2, result3
+
+	//meendine terelebih dahulu function contoh (result int, result2 int, result3 int)
+	// ketika tipe datanya sama bisa aja menggunakan (result, result2, result3 int)
+
+}
+
+
+
+//tpm
+type AnggotaKelas struct {
+	Absen     int
+	Nama      string
+	Alamat    string
+	Pekerjaan string
+	Alasan    string
+}
+
+var Anggota = []AnggotaKelas{
+	{
+		1,
+		"Sidiq Trihartanto",
+		"Jl. Pondok Ranggon RT07/01",
+		"Karyawan Swasta",
+		"Karna ingin mempelajari backend dan tertarik terhadap bahasa Go",
+	},
+	{
+		2,
+		"Rinaldi Mulya",
+		"Jl. Bahagia No.1 Bogor",
+		"Karyawan Swasta",
+		"Karna pekerjaan backend dan tertarik dengan Go",
+	},
+	{
+		3,
+		"Ristiani",
+		"Jl. Bahagia No.2 Bogor",
+		"Pegawai Negeri Sipil",
+		"Sangat Menarik mempelajari bahasa Go",
+	},
+	{
+		4,
+		"Hendri Heryanto",
+		"Jl. Bahagia No.3 Bogor",
+		"Pegawai Negeri Sipil",
+		"Mengisi kesibukan dan menambahkan ilmu tentang backend dan bahasa Go",
+	},
+	{
+		5,
+		"Gusti Ayu",
+		"Jl. Bahagia No.4 Bogor",
+		"Guru Matematika",
+		"Rasa ingin tahu dengan bahasa Go yang amat tinggi",
+	},
+	{
+		6,
+		"Faza Iman",
+		"Jl. Bahagia No.5 Bogor",
+		"Pegawai BUMN",
+		"Saya ingin mengetahui tentang bahasa Go",
+	},
+}
+
+func validasiteman(absen int) (AnggotaKelas, bool) {
+	for _, temanaku := range Anggota {
+		if temanaku.Absen == absen {
+			return temanaku, true
+
+		}
+	}
+	return AnggotaKelas{}, false
+
+}
+
+func main (){
+	if len(os.Args) < 2 {
+		fmt.Println("Harus Masukan Nomor Absen Terlebih Dahulu")
+		return
+	}
+
+	// Ambil nomor absen dari argumen CLI
+	nomorAbsen := os.Args[1]
+
+	// Konversi nomor absen ke integer
+	absen, err := strconv.Atoi(nomorAbsen)
+	if err != nil {
+		fmt.Println("Harus masukan nomor absen dengan benar")
+		return
+	}
+
+	// Cari data teman berdasarkan nomor absen
+	teman, found := validasiteman(absen)
+
+	// Tampilkan hasil pencarian
+	if found {
+		fmt.Println("Data teman dengan absen", absen, ":")
+		fmt.Println("Nama:", teman.Nama)
+		fmt.Println("Alamat:", teman.Alamat)
+		fmt.Println("Pekerjaan:", teman.Pekerjaan)
+		fmt.Println("Alasan memilih kelas Golang:", teman.Alasan)
+	} else {
+		fmt.Println("Data teman dengan absen", absen, "tidak ditemukan")
+	}
+}

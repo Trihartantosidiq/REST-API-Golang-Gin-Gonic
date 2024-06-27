@@ -1,0 +1,108 @@
+func main() {
+
+	go fmt.Println("hello go routine")
+	go printsec(0, 10, 10)
+	go printsec(11, 20, 5)
+
+	//print berapa bannyak go routine yang sudah kita spawn
+	fmt.Println("number of go routine", runtime.NumGoroutine())
+
+	printsec(21, 30, 30)
+
+	//note: concurrency pattern belajar sendiri
+
+	//batas maximum go routine
+	//=> cpu dan ram 4kb2kb
+	//apakh bisa go routine diberhentikan
+	//bisa yaitu program dimatikan atau nanti di http serve yaitu gracefull shutdown
+
+	wg := sync.WaitGroup{}
+	wg.Add(1)
+
+	go func() {
+		printsec(0, 10, 10)
+		wg.Done()
+	}()
+	go func() {
+		printsec(11, 20, 10)
+		wg.Done()
+	}()
+	wg.Wait()
+
+	arr := []int{1, 2, 3}
+	wg2 := sync.WaitGroup{}
+
+	for _, val := range arr {
+
+		wg2.Add(1)
+		go func(wg_ *sync.WaitGroup, num int) {
+			fmt.Println("num ", num)
+			wg_.Done()
+		}(&wg2, val)
+	}
+	wg2.Wait()
+
+	//jika wg.add < jumlah wg.done maka akan terjadi panic karna dia hanya punya 1 wwwg.add tapi ada menunggu wg.done yang lainnya
+	//jika wg.add > wg.done maka akanterjadi deadlock atau yang disebut jkita punya 3 wait tapi jumlah wg.done melebihi jumlah makannya jadi deadlock, waktu yang digunakan tidak sesuai dengan wg.done
+}
+
+func printsec(start, end int, delayms int) {
+	for i := start; i < end; i++ {
+		fmt.Println("print for seq:", i)
+		time.Sleep((time.Duration(delayms) * time.Millisecond))
+	}
+}
+
+func iface() {
+	//var iface interface ()
+
+	var iface any
+	fmt.Println(iface)
+
+	// asssigniface to int
+	iface = 10
+	fmt.Println("iface int: %T %v", iface, iface)
+	iface = "string"
+	fmt.Println("iface int: %T %v", iface, iface)
+
+	iface = 10
+	//casting type from interface
+	str, ok := iface.(string)
+	if !ok {
+		fmt.Println("iface is not string")
+	} else {
+		fmt.Printf("str1, type:%T value:%v", str, str)
+	}
+
+	//ifface bisa ga dijadikan slice
+	slciface := []any{1, "string", 1.4}
+	fmt.Println(slciface)
+
+	mapiface := map[string]any{}
+	mapiface["name"] = "user 1"
+	mapiface["age"] = 8
+	fmt.Println(mapiface)
+
+	//package reflect (BELAJAR SENDIRI)
+}
+
+func testpm() {
+	numbers := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10} ///negbuat slice
+
+	var wg sync.WaitGroup
+
+	// Looping melalui slice
+	for _, num := range numbers {
+		wg.Add(1) // Menambah counter WaitGroup
+
+		// Membuat dan menjalankan goroutine dengan IIFE
+		go func(n int) {
+			defer wg.Done() // Mengurangi counter wg saat goroutine selesai
+			fmt.Println(n)
+		}(num)
+	}
+
+	// Menunggu semua goroutine selesai
+	wg.Wait()
+	fmt.Println("All goroutines have completed")
+}
